@@ -1,21 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const protect = require("../middleware/authMiddleware");
-const {
-  getUserProfile,
-  followUser,
-  unfollowUser,
-  updateProfile,
-  searchUsers,
-  getSuggestions
-} = require("../controllers/userController");
+const User = require("../models/User");
 
-// Routes (order matters - specific before general)
-router.get("/search", protect, searchUsers);
-router.get("/suggestions", protect, getSuggestions);
-router.get("/profile", protect, getUserProfile); // Changed from :username
-router.put("/profile", protect, updateProfile);
-router.post("/:id/follow", protect, followUser);
-router.post("/:id/unfollow", protect, unfollowUser);
+// Simple test route
+router.get("/test", (req, res) => {
+  res.json({ msg: "User routes working!" });
+});
+
+// Get user profile
+router.get("/:username", async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username }).select("-password");
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+});
 
 module.exports = router;
