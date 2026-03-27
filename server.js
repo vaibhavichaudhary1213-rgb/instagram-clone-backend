@@ -9,11 +9,14 @@ connectDB();
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json());  // Parses JSON bodies
+app.use(express.urlencoded({ extended: true }));  // Parses form data
 app.use(cors());
 
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/users", userRoutes);
+// Your routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/posts', require('./routes/postRoutes'));
 
 app.get("/", (req, res) => {
   res.send("API Running...");

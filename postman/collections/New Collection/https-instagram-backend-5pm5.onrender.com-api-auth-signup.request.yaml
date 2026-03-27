@@ -1,0 +1,20 @@
+$kind: http-request
+name: https://instagram-backend-5pm5.onrender.com/api/auth/signup
+url: https://instagram-backend-5pm5.onrender.com/api/auth/signup
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \  \"username\": \"johndoe\",\r
+
+    \  \"email\": \"john@example.com\",\r
+
+    \  \"password\": \"123456\",\r
+
+    \  \"fullName\": \"John Doe\"\r
+
+    }"
+order: 1774609398871
